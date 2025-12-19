@@ -7,19 +7,15 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   // Validate environment variables
   const env = validateEnv();
-  
+
   const logger = new Logger('Bootstrap');
 
   // Create Fastify adapter
   const adapter = new FastifyAdapter();
-  
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    adapter,
-    {
-      logger: ['log', 'error', 'warn', 'debug', 'verbose'],
-    },
-  );
+
+  const app = await NestFactory.create<NestFastifyApplication>(AppModule, adapter, {
+    logger: ['log', 'error', 'warn', 'debug', 'verbose'],
+  });
 
   // Enable CORS for development
   app.enableCors({
@@ -30,7 +26,7 @@ async function bootstrap() {
 
   const port = env.PORT;
   await app.listen(port, '0.0.0.0');
-  
+
   logger.log(`🚀 BFF API is running on: http://localhost:${port}`);
   logger.log(`   Health check: http://localhost:${port}/health`);
   logger.log(`   Products API: http://localhost:${port}/api/products`);

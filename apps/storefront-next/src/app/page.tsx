@@ -13,12 +13,9 @@ export default function HomePage() {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900">
-          Welcome to Next Magento Storefront
-        </h1>
+        <h1 className="text-4xl font-bold text-gray-900">Welcome to Next Magento Storefront</h1>
         <p className="mt-4 text-lg text-gray-600">
-          A batteries-included headless commerce setup with Adobe Commerce, NestJS BFF, and
-          Next.js
+          A batteries-included headless commerce setup with Adobe Commerce, NestJS BFF, and Next.js
         </p>
       </div>
 
@@ -54,8 +51,14 @@ export default function HomePage() {
         <h2 className="mb-4 text-xl font-semibold text-gray-900">Quick Start</h2>
         <ol className="list-inside list-decimal space-y-2 text-gray-700">
           <li>Infrastructure is running (Redis + Magento)</li>
-          <li>Run Magento setup if first time: <code className="rounded bg-gray-200 px-2 py-1">npm run magento:setup</code></li>
-          <li>Seed products: <code className="rounded bg-gray-200 px-2 py-1">npm run magento:seed</code></li>
+          <li>
+            Run Magento setup if first time:{' '}
+            <code className="rounded bg-gray-200 px-2 py-1">npm run magento:setup</code>
+          </li>
+          <li>
+            Seed products:{' '}
+            <code className="rounded bg-gray-200 px-2 py-1">npm run magento:seed</code>
+          </li>
           <li>BFF API is running on port 4000</li>
           <li>You&apos;re viewing the storefront on port 3000</li>
         </ol>

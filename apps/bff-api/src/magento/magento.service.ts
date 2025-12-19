@@ -32,7 +32,10 @@ const MagentoProductDetailSchema = MagentoProductSchema.extend({
     })
     .optional()
     .nullable(),
-  media_gallery: z.array(z.object({ url: z.string() })).optional().nullable(),
+  media_gallery: z
+    .array(z.object({ url: z.string() }))
+    .optional()
+    .nullable(),
 });
 
 const ProductsResponseSchema = z.object({
@@ -54,9 +57,7 @@ export class MagentoService {
 
   constructor() {
     const magentoUrl = process.env.MAGENTO_GRAPHQL_URL || 'http://localhost:8080/graphql';
-    this.client = new GraphQLClient(magentoUrl, {
-      timeout: 10000,
-    });
+    this.client = new GraphQLClient(magentoUrl);
   }
 
   async getProducts(pageSize: number = 20) {

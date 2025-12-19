@@ -90,7 +90,11 @@ export default function ProductDetailPage({ params }: { params: Promise<{ sku: s
                 <div className="grid grid-cols-4 gap-2">
                   {product.images.slice(1, 5).map((img, idx) => (
                     <div key={idx} className="overflow-hidden rounded border">
-                      <img src={img} alt={`${product.name} ${idx + 2}`} className="h-20 w-full object-cover" />
+                      <img
+                        src={img}
+                        alt={`${product.name} ${idx + 2}`}
+                        className="h-20 w-full object-cover"
+                      />
                     </div>
                   ))}
                 </div>

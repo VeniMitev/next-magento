@@ -69,6 +69,7 @@ npm run dev:infra
 ```
 
 This starts:
+
 - **Redis** on port 6379
 - **Magento** on port 8080 (with MySQL & Elasticsearch)
 
@@ -95,6 +96,7 @@ npm run magento:setup
 ```
 
 This will:
+
 - Install Magento Open Source 2.4.6
 - Configure GraphQL endpoint
 - Create admin user
@@ -116,18 +118,19 @@ npm run dev
 ```
 
 This starts:
+
 - **BFF API** on http://localhost:4000
 - **Storefront** on http://localhost:3000
 
 ## 🌐 Access Points
 
-| Service | URL | Credentials |
-|---------|-----|-------------|
-| Storefront | http://localhost:3000 | - |
-| BFF Health | http://localhost:4000/health | - |
-| BFF Products | http://localhost:4000/api/products | - |
-| Magento Admin | http://localhost:8080/admin | admin / Admin123! |
-| Magento GraphQL | http://localhost:8080/graphql | - |
+| Service         | URL                                | Credentials       |
+| --------------- | ---------------------------------- | ----------------- |
+| Storefront      | http://localhost:3000              | -                 |
+| BFF Health      | http://localhost:4000/health       | -                 |
+| BFF Products    | http://localhost:4000/api/products | -                 |
+| Magento Admin   | http://localhost:8080/admin        | admin / Admin123! |
+| Magento GraphQL | http://localhost:8080/graphql      | -                 |
 
 ## 📝 Available Scripts
 
@@ -171,6 +174,7 @@ npm run -w apps/bff-api test
 ```
 
 Includes:
+
 - Environment validation tests
 - Cache service tests
 
@@ -179,17 +183,21 @@ Includes:
 ### BFF API Endpoints
 
 #### `GET /health`
+
 ```json
 { "status": "ok" }
 ```
 
 #### `GET /api/products`
+
 Returns product list with 60s Redis cache.
 
 #### `GET /api/products/:sku`
+
 Returns product details with 60s Redis cache.
 
 #### `GET /api/config`
+
 ```json
 { "bffVersion": "0.1.0" }
 ```
@@ -267,6 +275,7 @@ railway up
 ```
 
 Environment variables:
+
 ```
 MAGENTO_GRAPHQL_URL=<your-magento-url>/graphql
 REDIS_URL=<railway-redis-url>
@@ -274,11 +283,13 @@ PORT=${{PORT}}
 ```
 
 Build command:
+
 ```bash
 npm run build:bff
 ```
 
 Start command:
+
 ```bash
 npm run start:bff
 ```
@@ -292,16 +303,19 @@ railway up
 ```
 
 Environment variables:
+
 ```
 NEXT_PUBLIC_BFF_URL=<railway-bff-url>
 ```
 
 Build command:
+
 ```bash
 npm run build:next
 ```
 
 Start command:
+
 ```bash
 npm run start:next
 ```
@@ -311,11 +325,13 @@ Dockerfile: `apps/storefront-next/Dockerfile`
 #### 4. Magento (Optional)
 
 Magento on Railway requires significant resources (2GB+ RAM). Alternatives:
+
 - Use Magento Cloud
 - Deploy on a VPS (DigitalOcean, Linode)
 - Use Adobe Commerce managed hosting
 
 For Railway deployment, use `infra/magento/Dockerfile` and ensure:
+
 - Persistent volumes for uploads
 - MySQL service
 - Elasticsearch service
@@ -333,6 +349,7 @@ Each service should be configured with:
 ## 🛠️ Tech Stack
 
 ### Storefront
+
 - Next.js 14 (App Router)
 - React 18
 - Tailwind CSS
@@ -341,6 +358,7 @@ Each service should be configured with:
 - TypeScript
 
 ### BFF API
+
 - NestJS 10
 - Fastify
 - GraphQL Request Client
@@ -349,17 +367,20 @@ Each service should be configured with:
 - TypeScript
 
 ### Shared
+
 - Zod schemas
 - Shared types
 - Fetch utilities
 
 ### Infrastructure
+
 - Adobe Commerce (Magento) 2.4.6
 - Redis 7
 - MySQL 8.0
 - Elasticsearch 7.17
 
 ### Tooling
+
 - npm workspaces
 - ESLint
 - Prettier (with Tailwind plugin)

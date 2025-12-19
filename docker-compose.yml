@@ -5,13 +5,13 @@ services:
     image: redis:7-alpine
     container_name: next-magento-redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis-data:/data
     networks:
       - next-magento-network
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile
     container_name: next-magento-magento
     ports:
-      - "8080:80"
+      - '8080:80'
     environment:
       - MYSQL_HOST=magento-db
       - MYSQL_ROOT_PASSWORD=root_password
@@ -43,7 +43,7 @@ services:
     networks:
       - next-magento-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health_check.php"]
+      test: ['CMD', 'curl', '-f', 'http://localhost/health_check.php']
       interval: 30s
       timeout: 10s
       retries: 5
@@ -63,7 +63,7 @@ services:
       - next-magento-network
     command: --default-authentication-plugin=mysql_native_password --max_allowed_packet=256M
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_password"]
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-proot_password']
       interval: 10s
       timeout: 5s
       retries: 10
@@ -73,14 +73,14 @@ services:
     container_name: next-magento-elasticsearch
     environment:
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
       - xpack.security.enabled=false
     volumes:
       - es-data:/usr/share/elasticsearch/data
     networks:
       - next-magento-network
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      test: ['CMD-SHELL', 'curl -f http://localhost:9200/_cluster/health || exit 1']
       interval: 30s
       timeout: 10s
       retries: 5

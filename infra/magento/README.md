@@ -45,6 +45,7 @@ The `magento-seed.sh` script creates sample products so the GraphQL queries retu
 ## Troubleshooting
 
 ### Container won't start
+
 ```bash
 # Check logs
 docker-compose logs magento
@@ -55,11 +56,13 @@ docker-compose up -d
 ```
 
 ### GraphQL not responding
+
 - Wait 2-3 minutes after first start for Magento to complete installation
 - Check container health: `docker-compose ps`
 - Verify endpoint: `curl http://localhost:8080/graphql`
 
 ### Database connection issues
+
 - Ensure MySQL container is healthy
 - Check environment variables in docker-compose.yml
 
