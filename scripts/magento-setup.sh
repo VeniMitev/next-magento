@@ -31,20 +31,34 @@ fi
 
 echo "📦 Installing Magento Open Source..."
 echo "   This may take 5-10 minutes..."
+echo ""
+echo "NOTE: This uses the open-source mirror to avoid authentication requirements."
+echo ""
 
 # Download and install Magento
 docker exec $CONTAINER_NAME bash -c "
     set -e
     
-    # Install Magento via Composer
-    composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition:2.4.6 /tmp/magento
+    # Install Magento via Composer using GitHub mirror (no auth required)
+    # Using --no-install to avoid issues, then we'll install dependencies
+    COMPOSER_MEMORY_LIMIT=-1 composer create-project \
+        --repository-url=https://mirror.mage-os.org/ \
+        magento/project-community-edition:2.4.6 \
+        /tmp/magento \
+        --no-install 2>&1 | grep -v 'Warning from repo.magento.com' || true
     
     # Copy files to web root
     cp -R /tmp/magento/* /var/www/html/
+    cd /var/www/html
+    
+    # Install dependencies without requiring auth
+    COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist 2>&1 | grep -v 'Warning from repo.magento.com' || true
     
     # Set proper permissions
     chown -R www-data:www-data /var/www/html
     chmod -R 755 /var/www/html
+    find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
+    find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
     
     # Run Magento setup
     php bin/magento setup:install \

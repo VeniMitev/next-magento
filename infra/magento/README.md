@@ -33,10 +33,23 @@ npm run magento:seed
 The Magento installation is handled by the `magento-setup.sh` script. This:
 
 1. Checks if Magento is already installed
-2. Downloads Magento Open Source
+2. Downloads Magento Open Source using the Mage-OS mirror (no authentication required)
 3. Runs the installation wizard
 4. Enables GraphQL
 5. Configures CORS for local development
+
+**Note:** The script uses the Mage-OS mirror repository to avoid Magento authentication requirements. This is a community-maintained mirror of the official Magento Open Source packages.
+
+### Alternative: Using Official Repository with Authentication
+
+If you prefer to use the official Magento repository (requires authentication):
+
+1. Get your Magento authentication keys from https://marketplace.magento.com/customer/accessKeys/
+2. Configure Composer authentication in the container:
+   ```bash
+   docker exec -it next-magento-magento composer config -g http-basic.repo.magento.com <public-key> <private-key>
+   ```
+3. Then run `npm run magento:setup`
 
 ## Seeding Data
 
