@@ -3,6 +3,10 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import { AppModule } from './app.module';
 import { validateEnv } from './config/env.config';
 import { Logger } from '@nestjs/common';
+import * as dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 async function bootstrap() {
   // Validate environment variables
