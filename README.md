@@ -97,13 +97,13 @@ npm run magento:setup
 
 This will:
 
-- Install Magento Open Source 2.4.6 using the Mage-OS mirror (no authentication required)
+- Install Magento Open Source 2.4.6-p7 (security patched) using the Mage-OS mirror (no authentication required)
 - Configure GraphQL endpoint
 - Create admin user
 
 ⏱️ Takes 5-10 minutes on first run.
 
-**Note:** The setup uses the community-maintained Mage-OS mirror to avoid Magento Marketplace authentication requirements. See `/infra/magento/README.md` for details on using the official repository if needed.
+**Note:** The setup uses the community-maintained Mage-OS mirror and the latest patched version (2.4.6-p7) to avoid both authentication requirements and security advisories. See `/infra/magento/README.md` for details on using the official repository if needed.
 
 ### 5. Seed Sample Products
 

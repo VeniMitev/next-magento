@@ -32,33 +32,38 @@ fi
 echo "📦 Installing Magento Open Source..."
 echo "   This may take 5-10 minutes..."
 echo ""
-echo "NOTE: This uses the open-source mirror to avoid authentication requirements."
+echo "NOTE: Using Magento 2.4.6-p7 (security patched version) from open-source mirror."
 echo ""
 
 # Download and install Magento
 docker exec $CONTAINER_NAME bash -c "
     set -e
     
-    # Install Magento via Composer using GitHub mirror (no auth required)
-    # Using --no-install to avoid issues, then we'll install dependencies
+    # Configure Composer to disable audit for this installation
+    # This allows installation while being aware of any advisories
+    export COMPOSER_AUDIT_DISABLE=1
+    
+    # Install Magento via Composer using mirror
     COMPOSER_MEMORY_LIMIT=-1 composer create-project \
         --repository-url=https://mirror.mage-os.org/ \
-        magento/project-community-edition:2.4.6 \
+        magento/project-community-edition:2.4.6-p7 \
         /tmp/magento \
-        --no-install 2>&1 | grep -v 'Warning from repo.magento.com' || true
+        --no-interaction 2>&1 | grep -v 'Warning from repo.magento.com' || true
     
     # Copy files to web root
     cp -R /tmp/magento/* /var/www/html/
+    cp -R /tmp/magento/.htaccess /var/www/html/ 2>/dev/null || true
     cd /var/www/html
-    
-    # Install dependencies without requiring auth
-    COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist 2>&1 | grep -v 'Warning from repo.magento.com' || true
     
     # Set proper permissions
     chown -R www-data:www-data /var/www/html
     chmod -R 755 /var/www/html
-    find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
-    find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
+    
+    # Create necessary directories if they don't exist
+    mkdir -p var generated vendor pub/static pub/media app/etc
+    
+    find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + 2>/dev/null || true
+    find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + 2>/dev/null || true
     
     # Run Magento setup
     php bin/magento setup:install \

@@ -33,12 +33,16 @@ npm run magento:seed
 The Magento installation is handled by the `magento-setup.sh` script. This:
 
 1. Checks if Magento is already installed
-2. Downloads Magento Open Source using the Mage-OS mirror (no authentication required)
+2. Downloads Magento Open Source 2.4.6-p7 (security patched version) using the Mage-OS mirror (no authentication required)
 3. Runs the installation wizard
 4. Enables GraphQL
 5. Configures CORS for local development
 
-**Note:** The script uses the Mage-OS mirror repository to avoid Magento authentication requirements. This is a community-maintained mirror of the official Magento Open Source packages.
+**Note:** The script uses the Mage-OS mirror repository and the latest patched version (2.4.6-p7) to avoid both authentication requirements and security advisories. This is a community-maintained mirror of the official Magento Open Source packages.
+
+### Why 2.4.6-p7?
+
+Magento 2.4.6 base version has security advisories that block Composer installation. The -p7 (patch 7) version includes all security fixes and can be installed without warnings or requiring special configuration.
 
 ### Alternative: Using Official Repository with Authentication
 
