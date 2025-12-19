@@ -100,10 +100,11 @@ This will:
 - Install Magento Open Source 2.4.6-p7 (security patched) using the Mage-OS mirror (no authentication required)
 - Configure GraphQL endpoint
 - Create admin user
+- Disable Composer audits to allow installation (see note below)
 
 ⏱️ Takes 5-10 minutes on first run.
 
-**Note:** The setup uses the community-maintained Mage-OS mirror and the latest patched version (2.4.6-p7) to avoid both authentication requirements and security advisories. See `/infra/magento/README.md` for details on using the official repository if needed.
+**Note:** The setup uses `--no-audit` flag because some of Magento's dependencies have security advisories in Composer. While Magento 2.4.6-p7 itself is patched, some underlying dependencies trigger warnings. This is a known limitation of Magento installations. See `/infra/magento/README.md` for details.
 
 ### 5. Seed Sample Products
 
